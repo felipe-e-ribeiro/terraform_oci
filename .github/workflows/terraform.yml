@@ -27,7 +27,7 @@ jobs:
           TF_VAR_tenancy_ocid: ${{ secrets.TF_VAR_tenancy_ocid }}
           TF_VAR_region: ${{ secrets.TF_VAR_region }}
           TF_VAR_compartment_root_id: ${{ secrets.TF_VAR_compartment_root_id }}
-
+          TF_VAR_ssh_authorized_keys: ${{ secrets.TF_VAR_ssh_authorized_keys }}
         id: init
         run: terraform init -input=false
 
@@ -43,6 +43,7 @@ jobs:
           TF_VAR_tenancy_ocid: ${{ secrets.TF_VAR_tenancy_ocid }}
           TF_VAR_region: ${{ secrets.TF_VAR_region }}
           TF_VAR_compartment_root_id: ${{ secrets.TF_VAR_compartment_root_id }}
+          TF_VAR_ssh_authorized_keys: ${{ secrets.TF_VAR_ssh_authorized_keys }}
         id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -input=false
@@ -84,4 +85,4 @@ jobs:
           TF_VAR_tenancy_ocid: ${{ secrets.TF_VAR_tenancy_ocid }}
           TF_VAR_region: ${{ secrets.TF_VAR_region }}
           TF_VAR_compartment_root_id: ${{ secrets.TF_VAR_compartment_root_id }}
-
+          TF_VAR_ssh_authorized_keys: ${{ secrets.TF_VAR_ssh_authorized_keys }}
