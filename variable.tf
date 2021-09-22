@@ -16,7 +16,7 @@ variable "instance_app_name" {
         default = "srv-oci-app"
 }
 
-variable "ssh_authorized_keys"
+variable "ssh_authorized_keys" {
 	type = string
 }
 
