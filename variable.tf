@@ -16,18 +16,6 @@ variable "instance_app_name" {
         default = "srv-oci-app"
 }
 
-variable "address_bucket" {
-	type = string
-}
-
-variable "ssh_authorized_keys" {
-	type = string
-}
-
-variable "endpoint_url" {
-	type = string
-}
-
 variable "instance_variables" {
   description = "Map instance name to hostname"
   default = {
