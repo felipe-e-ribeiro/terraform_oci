@@ -16,6 +16,10 @@ variable "instance_app_name" {
         default = "srv-oci-app"
 }
 
+variable "ssh_authorized_keys"
+	type = string
+}
+
 variable "instance_variables" {
   description = "Map instance name to hostname"
   default = {
