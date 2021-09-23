@@ -13,7 +13,7 @@ variable "compartment" {
 
 variable "instance_app_name" {
         type = string  
-        default = "srv-oci-app"
+        default = "test-instance"
 }
 
 variable "ssh_authorized_keys" {
