@@ -1,23 +1,23 @@
 variable "compartment_root_id" {
-        type = string
+  type = string
 }
 
 variable "private_key" {
-	type = string
+  type = string
 }
 
 variable "compartment" {
-	type	= string
-	default = "Compart_Felipe"
+  type    = string
+  default = "Compart_Felipe"
 }
 
 variable "instance_app_name" {
-        type = string  
-        default = "test-instance"
+  type    = string
+  default = "test-instance"
 }
 
 variable "ssh_authorized_keys" {
-	type = string
+  type = string
 }
 
 variable "instance_variables" {
@@ -30,28 +30,28 @@ variable "instance_variables" {
 
 ############ NETWORK #######
 variable "subnet_name" {
-        type = string
-        default = "vcn_felps"
+  type    = string
+  default = "vcn_felps"
 }
 variable "subnet_label" {
-        type = string
-        default = "felps"
+  type    = string
+  default = "felps"
 }
 variable "subnet" {
-        type = string
-        default = "10.250.252.0/23"
+  type    = string
+  default = "10.250.252.0/23"
 }
 variable "public_subnet" {
-        type = string
-        default = "10.250.252.0/24"
+  type    = string
+  default = "10.250.252.0/24"
 }
 variable "private_subnet" {
-        type = string
-        default = "10.250.253.0/24"
+  type    = string
+  default = "10.250.253.0/24"
 }
 variable "client_domain" {
-	type = string
-	default = "libbers.ddns.net"
+  type    = string
+  default = "libbers.ddns.net"
 }
 
 locals {
@@ -61,15 +61,15 @@ locals {
 
 #CentOS 8 imagem
 variable "server_app" {
-        type = string
-        default = "ocid1.image.oc1.iad.aaaaaaaadzlyimwgplwurg2nm5yiwbz4ah6hlj2aasrvq5mzcxb7reohpfka"
+  type    = string
+  default = "ocid1.image.oc1.iad.aaaaaaaadzlyimwgplwurg2nm5yiwbz4ah6hlj2aasrvq5mzcxb7reohpfka"
 }
 
 variable "shape_list" {
-        type = map
-        default = {
-    "FREE"  = "VM.Standard.E2.1.Micro"
-    "1CPU_AMD"  = "VM.Standard.E2.1"
+  type = map(any)
+  default = {
+    "FREE"     = "VM.Standard.E2.1.Micro"
+    "1CPU_AMD" = "VM.Standard.E2.1"
     "2CPU_AMD" = "VM.Standard.E2.2"
     "4CPU_AMD" = "VM.Standard.E2.4"
     "1CPU_INT" = "VM.Standard2.1"
