@@ -22,7 +22,7 @@ output "private-security-list-OCID" {
 #}
 
 data "oci_core_instances" "test_instances" {
-    compartment_id = oci_identity_compartment.compart_main.id
+  compartment_id = oci_identity_compartment.compart_main.id
 
 }
 
