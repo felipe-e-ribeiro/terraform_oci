@@ -1,0 +1,36 @@
+---
+ - name: Adicionando o repositorio Oficial Docker
+   get_url:
+     url: https://download.docker.com/linux/centos/docker-ce.repo
+     dest: /etc/yum.repos.d/docker-ce.repo
+     mode: '0440'
+ - name: Instalando pacotes do Docker
+   yum:
+     name: "{{pacotes}}"
+     state: latest
+   vars:
+     pacotes:
+       - docker-ce
+       - docker-ce-cli
+       - containerd.io
+ - name: Iniciando o servico do Docker
+   ansible.builtin.systemd:
+     name: docker
+     state: started
+     enabled: yes
+ - name: Liberando porta 2377 TCP
+   ansible.posix.firewalld:
+     port: "{{ item }}"
+     permanent: yes
+     state: enabled
+     immediate: yes
+   with_items:
+       - "2377/tcp"
+       - "7946/udp"
+       - "7946/tcp"
+       - "4789/udp"
+ - name: Criando o docker-compose
+   get_url:
+     url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+     dest: /usr/local/bin/docker-compose
+     mode: 0551

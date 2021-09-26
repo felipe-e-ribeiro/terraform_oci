@@ -1,0 +1,3 @@
+---
+# defaults file for role.docker-presetup
+docker_external_mount_point: false

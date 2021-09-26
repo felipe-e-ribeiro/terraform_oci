@@ -1,0 +1,3 @@
+---
+ - name: Install NFS
+   include: install_nfs.yml

@@ -1,0 +1,7 @@
+---
+# tasks file for role.docker-presetup
+ - name: Instalacao Docker
+   include: install_docker.yml
+ - name: Configurando Docker
+   include: configure_docker.yml
+   when: "docker_external_mount_point == true"

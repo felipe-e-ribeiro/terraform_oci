@@ -1,0 +1,18 @@
+---
+# - name: Criando volume webserver
+#   community.docker.docker_volume:
+#     name: webserver
+ - name: Criando volume webserver
+   ansible.builtin.shell: docker volume create webserver
+ - name: Criando rede para o swarm
+   ansible.builtin.shell: docker network create -d overlay webserver
+ - name: Instalando servico NFS
+   yum:
+     name: nfs-utils
+     state: latest
+ - name: Montando o NFS
+   ansible.posix.mount:
+     src: 172.28.128.112:/opt/webserver
+     path: /var/lib/docker/volumes/webserver
+     fstype: nfs
+     state: mounted
