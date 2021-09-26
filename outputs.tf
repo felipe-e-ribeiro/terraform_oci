@@ -21,7 +21,10 @@ output "private-security-list-OCID" {
 #  value = oci_core_instance.CreateInstance["server2"].public_ip
 #}
 
+data "oci_core_instances" "test_instances" {
+    compartment_id = oci_identity_compartment.compart_main.id
 
+}
 
 # Outputs for private subnet
 
