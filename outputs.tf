@@ -23,10 +23,15 @@ output "private-security-list-OCID" {
 
 data "oci_core_instances" "test_instances" {
   compartment_id = oci_identity_compartment.compart_main.id
-
 }
 
-# Outputs for private subnet
+output "public_ips" {
+  value = {
+    for k, v in oci_core_instance.CreateInstance : k => v.public_ip
+  }
+
+  depends_on = [oci_core_instance.CreateInstance[0]]
+}
 
 output "private-subnet-name" {
   value = oci_core_subnet.vcn-private-subnet.display_name
