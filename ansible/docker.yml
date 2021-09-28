@@ -1,4 +1,4 @@
 ---
- - hosts: docker_servers
+ - hosts: servers
    roles:
      - docker
