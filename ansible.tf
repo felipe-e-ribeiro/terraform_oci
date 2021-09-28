@@ -11,6 +11,6 @@ resource "local_file" "AnsibleInventory" {
   filename = "inventory"
 }
 
-provisioner "local-exec" {
+resource "null_resource" "ansible_process" {
   command = "sleep 90; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ansible -i inventory ' --private-key ${secrets.TF_VAR_SSH_PRIVATE_KEYS} ansible/docker.yml"
 }
