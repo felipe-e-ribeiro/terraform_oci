@@ -5,7 +5,7 @@ data "oci_identity_availability_domains" "ads" {
 
 resource "oci_core_instance" "CreateInstance" {
   #for_each            = var.instance_variables
-  count               = 1 
+  count               = 1
   availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
   compartment_id      = oci_identity_compartment.compart_main.id
   shape               = var.shape_list["FREE"]
