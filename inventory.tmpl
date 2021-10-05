@@ -1,4 +1,6 @@
 [servers]
-%{ for index, dns in private-dns ~}
+%{ for index, dns in private-ip ~}
 ansible_host=${private-ip[index]} # ${private-id[index]}
 %{ endfor ~}
+[servers:vars]
+ansible_user=opc

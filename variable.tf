@@ -2,9 +2,9 @@ variable "compartment_root_id" {
   type = string
 }
 
-variable "private_key" {
-  type = string
-}
+#variable "private_key" {
+#  type = string
+#}
 
 variable "compartment" {
   type    = string

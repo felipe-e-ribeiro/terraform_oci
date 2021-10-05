@@ -18,3 +18,24 @@ output "public_ips" {
 
   depends_on = [oci_core_instance.CreateInstance[0]]
 }
+
+resource "local_file" "AuthFile" {
+    content = templatefile("./inventory.tmpl",
+        {
+        private-ip = oci_core_instance.CreateInstance.*.public_ip,
+        private-id = oci_core_instance.CreateInstance.*.id
+        }
+    )
+    filename = "inventory"
+}
+
+
+resource "local_file" "AnsibleInventory" {
+    content = templatefile("./inventory.tmpl",
+        {
+        private-ip = oci_core_instance.CreateInstance.*.public_ip,
+        private-id = oci_core_instance.CreateInstance.*.id
+        }
+    )
+    filename = "inventory"
+}
