@@ -26,7 +26,7 @@ resource "local_file" "AuthFile" {
       private-id = oci_core_instance.CreateInstance.*.id
     }
   )
-  filename = "inventory"
+  filename = "./ansible/inventory"
 }
 
 
