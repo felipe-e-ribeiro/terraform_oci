@@ -27,6 +27,7 @@ resource "local_file" "AuthFile" {
     }
   )
   filename = "inventory"
+  sensitive_content = true
 }
 
 
@@ -38,4 +39,5 @@ resource "local_file" "AnsibleInventory" {
     }
   )
   filename = "inventory"
+  sensitive_content = true
 }
