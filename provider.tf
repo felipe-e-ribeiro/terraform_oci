@@ -1,5 +1,5 @@
 provider "oci" {
-#  private_key = var.private_key
+  private_key = var.private_key
 }
 
 terraform {
