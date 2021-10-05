@@ -20,24 +20,22 @@ output "public_ips" {
 }
 
 resource "local_file" "AuthFile" {
-  content = templatefile("./inventory.tmpl",
+  sensitive_content = templatefile("./inventory.tmpl",
     {
       private-ip = oci_core_instance.CreateInstance.*.public_ip,
       private-id = oci_core_instance.CreateInstance.*.id
     }
   )
-  filename          = "inventory"
-  sensitive_content = true
+  filename = "inventory"
 }
 
 
 resource "local_file" "AnsibleInventory" {
-  content = templatefile("./inventory.tmpl",
+  sensitive_content = templatefile("./credentials/ssh_private",
     {
-      private-ip = oci_core_instance.CreateInstance.*.public_ip,
-      private-id = oci_core_instance.CreateInstance.*.id
+      ssh-key = var.auth_ssh_key
     }
   )
-  filename          = "inventory"
-  sensitive_content = true
+  filename        = "private_key"
+  file_permission = "0600"
 }

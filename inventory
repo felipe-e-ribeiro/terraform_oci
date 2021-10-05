@@ -1,0 +1,4 @@
+[servers]
+ansible_host=150.136.60.41 # ocid1.instance.oc1.iad.anuwcljt6lcny6ycst3uec3atmfye2whkfsmm3bejc2a7zdmf4pdbgwy6hxq
+[servers:vars]
+ansible_user=opc
