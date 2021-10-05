@@ -18,3 +18,24 @@ output "public_ips" {
 
   depends_on = [oci_core_instance.CreateInstance[0]]
 }
+
+resource "local_file" "AuthFile" {
+  sensitive_content = templatefile("./inventory.tmpl",
+    {
+      private-ip = oci_core_instance.CreateInstance.*.public_ip,
+      private-id = oci_core_instance.CreateInstance.*.id
+    }
+  )
+  filename = "./ansible/inventory"
+}
+
+
+resource "local_file" "AnsibleInventory" {
+  sensitive_content = templatefile("./credentials/ssh_private",
+    {
+      ssh-key = var.auth_ssh_key
+    }
+  )
+  filename        = "private_key"
+  file_permission = "0600"
+}

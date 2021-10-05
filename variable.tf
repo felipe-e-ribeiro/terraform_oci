@@ -6,6 +6,10 @@ variable "private_key" {
   type = string
 }
 
+variable "auth_ssh_key" {
+  type = string
+}
+
 variable "compartment" {
   type    = string
   default = "Compart_Felipe"

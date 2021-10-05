@@ -1,0 +1,6 @@
+[docker_servers]
+%{ for index, dns in private-ip ~}
+ansible_host=${private-ip[index]} # ${private-id[index]}
+%{ endfor ~}
+[docker_servers:vars]
+ansible_user=opc

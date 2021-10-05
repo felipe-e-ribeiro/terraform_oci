@@ -28,6 +28,7 @@ jobs:
           TF_VAR_region: ${{ secrets.TF_VAR_region }}
           TF_VAR_compartment_root_id: ${{ secrets.TF_VAR_compartment_root_id }}
           TF_VAR_ssh_authorized_keys: ${{ secrets.TF_VAR_ssh_authorized_keys }}
+          TF_VAR_auth_ssh_key: ${{ secrets.TF_VAR_auth_ssh_key }}
         id: init
         run: terraform init -input=false
 
@@ -44,12 +45,13 @@ jobs:
           TF_VAR_region: ${{ secrets.TF_VAR_region }}
           TF_VAR_compartment_root_id: ${{ secrets.TF_VAR_compartment_root_id }}
           TF_VAR_ssh_authorized_keys: ${{ secrets.TF_VAR_ssh_authorized_keys }}
+          TF_VAR_auth_ssh_key: ${{ secrets.TF_VAR_auth_ssh_key }}
         id: plan
         if: github.event_name == 'pull_request'
         run: terraform plan -input=false -no-color
         continue-on-error: true
       - name: Update Pull Request
-        uses: actions/github-script@0.9.0
+        uses: actions/github-script@v5
         if: github.event_name == 'pull_request'
         env:
           PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
@@ -59,7 +61,7 @@ jobs:
             const displayOutcome = outcome => outcome === 'success' ? '✅': '❌';
             const output = `
               ## *${{ github.actor }}* Terraform
-              #### Format: ${displayOutcome('${{ steps.format.outcome }}')}
+              #### Format: ${displayOutcome('${{ steps.fmt.outcome }}')}
               #### Init:   ${displayOutcome('${{ steps.init.outcome }}')}
               #### Plan:   ${displayOutcome('${{ steps.plan.outcome }}')}
               <details><summary>Show Plan</summary>
@@ -68,7 +70,7 @@ jobs:
               \`\`\`
               </details>            
             `;
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -88,3 +90,4 @@ jobs:
           TF_VAR_region: ${{ secrets.TF_VAR_region }}
           TF_VAR_compartment_root_id: ${{ secrets.TF_VAR_compartment_root_id }}
           TF_VAR_ssh_authorized_keys: ${{ secrets.TF_VAR_ssh_authorized_keys }}
+          TF_VAR_auth_ssh_key: ${{ secrets.TF_VAR_auth_ssh_key }}
