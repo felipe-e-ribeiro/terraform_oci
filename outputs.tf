@@ -26,7 +26,7 @@ resource "local_file" "AuthFile" {
       private-id = oci_core_instance.CreateInstance.*.id
     }
   )
-  filename = "inventory"
+  filename          = "inventory"
   sensitive_content = true
 }
 
@@ -38,6 +38,6 @@ resource "local_file" "AnsibleInventory" {
       private-id = oci_core_instance.CreateInstance.*.id
     }
   )
-  filename = "inventory"
+  filename          = "inventory"
   sensitive_content = true
 }

@@ -59,7 +59,7 @@ jobs:
             const displayOutcome = outcome => outcome === 'success' ? '✅': '❌';
             const output = `
               ## *${{ github.actor }}* Terraform
-              #### Format: ${displayOutcome('${{ steps.format.outcome }}')}
+              #### Format: ${displayOutcome('${{ steps.fmt.outcome }}')}
               #### Init:   ${displayOutcome('${{ steps.init.outcome }}')}
               #### Plan:   ${displayOutcome('${{ steps.plan.outcome }}')}
               <details><summary>Show Plan</summary>
