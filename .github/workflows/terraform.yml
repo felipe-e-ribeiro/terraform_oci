@@ -46,7 +46,7 @@ jobs:
           TF_VAR_ssh_authorized_keys: ${{ secrets.TF_VAR_ssh_authorized_keys }}
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -input=false
+        run: terraform plan -input=false -no-color
         continue-on-error: true
       - name: Update Pull Request
         uses: actions/github-script@0.9.0
@@ -56,22 +56,24 @@ jobs:
         with:
           github-token: ${{ secrets.TOKEN_GITHUB }}
           script: |
-            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            <details><summary>Show Plan</summary>
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
-            </details>
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            const displayOutcome = outcome => outcome === 'success' ? '✅': '❌';
+            const output = `
+              ## *${{ github.actor }}* Terraform
+              #### Format: ${displayOutcome('${{ steps.format.outcome }}')}
+              #### Init:   ${displayOutcome('${{ steps.init.outcome }}')}
+              #### Plan:   ${displayOutcome('${{ steps.plan.outcome }}')}
+              <details><summary>Show Plan</summary>
+              \`\`\`diff
+              ${{ steps.plan.outputs.stdout }}
+              \`\`\`
+              </details>            
+            `;
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: output
-            })
+            });
       - name : Terraform Plan Status
         if: steps.plan.outcome == 'failure'
         run: exit 1
