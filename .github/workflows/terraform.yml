@@ -46,7 +46,7 @@ jobs:
           TF_VAR_ssh_authorized_keys: ${{ secrets.TF_VAR_ssh_authorized_keys }}
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -input=false
+        run: terraform plan -input=false -no-color
         continue-on-error: true
       - name: Update Pull Request
         uses: actions/github-script@0.9.0
