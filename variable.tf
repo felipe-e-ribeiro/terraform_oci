@@ -25,7 +25,7 @@ variable "ssh_authorized_keys" {
 }
 
 variable "server_count" {
-  type = number
+  type    = number
   default = 2
 }
 

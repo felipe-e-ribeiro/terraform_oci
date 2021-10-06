@@ -1,7 +1,7 @@
 
 data "oci_core_vnic_attachments" "test_vnic_attachments" {
-    #Required
-    compartment_id = oci_identity_compartment.compart_main.id
+  #Required
+  compartment_id = oci_identity_compartment.compart_main.id
 }
 
 data "oci_core_instances" "test_instances" {
