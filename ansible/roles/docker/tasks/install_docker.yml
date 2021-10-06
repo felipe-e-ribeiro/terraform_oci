@@ -13,6 +13,7 @@
        - docker-ce
        - docker-ce-cli
        - containerd.io
+       - python3-pip 
  - name: Iniciando o servico do Docker
    ansible.builtin.systemd:
      name: docker
@@ -34,3 +35,15 @@
      url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
      dest: /usr/local/bin/docker-compose
      mode: 0551
+ - name: Install PIP depencie
+   pip:
+     name:
+       - docker-io
+ - name: Create nginx container
+   docker_container:
+     name: nginx
+     image: nginx:latest
+     state: started
+     recreate: yes
+     published_ports:
+       - "80:80"

@@ -1,5 +1,0 @@
----
- - hosts: docker_server_cloud
-   become: yes
-   roles:
-     - docker
