@@ -38,7 +38,7 @@
  - name: Install PIP depencie
    pip:
      name:
-       - docker-io
+       - docker
  - name: Create nginx container
    docker_container:
      name: nginx
