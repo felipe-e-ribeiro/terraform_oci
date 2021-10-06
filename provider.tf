@@ -1,6 +1,6 @@
 provider "oci" {
   private_key = var.private_key
-    region   = "us-ashburn-1"
+  region      = "us-ashburn-1"
 }
 
 terraform {
