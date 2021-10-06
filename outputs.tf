@@ -31,11 +31,11 @@ resource "local_file" "AuthFile" {
 
 
 resource "local_file" "AnsibleInventory" {
-  sensitive_content = templatefile("./credentials/ssh_private",
+  sensitive_content = templatefile("./credentials/private_key.tmpl",
     {
       ssh-key = var.auth_ssh_key
     }
   )
-  filename        = "private_key"
+  filename        = "./credentials/private_key"
   file_permission = "0600"
 }

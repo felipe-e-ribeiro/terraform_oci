@@ -1,4 +1,5 @@
 ---
  - hosts: docker_servers
+   become: true
    roles:
      - docker
