@@ -1,11 +1,3 @@
-#data "oci_core_public_ips" "public_ips" {
-#    compartment_id = oci_identity_compartment.compart_main.id
-#    scope = "AVAILABILITY_DOMAIN"
-#    lifetime = "EPHEMERAL"
-#    assigned_entity_type = "PRIVATE_IP"
-#    availability_domain = data.oci_identity_availability_domains.ads.availability_domains[1].name
-#}
-
 resource "oci_load_balancer_load_balancer" "load_balancer" {
     compartment_id = oci_identity_compartment.compart_main.id
     display_name = "LoadBalancer"
