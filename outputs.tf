@@ -24,23 +24,9 @@ output "public_ips" {
   depends_on = [oci_core_instance.CreateInstance[0]]
 }
 
-resource "local_file" "AuthFile" {
-  sensitive_content = templatefile("./ansible/inventory.tmpl",
-    {
-      private-ip = oci_core_instance.CreateInstance.*.public_ip,
-      private-id = oci_core_instance.CreateInstance.*.id
-    }
-  )
-  filename = "./ansible/inventory"
-}
-
-
-resource "local_file" "AnsibleInventory" {
-  sensitive_content = templatefile("./credentials/private_key.tmpl",
-    {
-      ssh-key = var.auth_ssh_key
-    }
-  )
-  filename        = "./credentials/private_key"
-  file_permission = "0600"
+output "load_balancer_ip" {
+  value = {
+    for k, v in oci_load_balancer_load_balancer.load_balancer.ip_address_details : k => lookup(v, "ip_address")
+  }
+  depends_on = [oci_load_balancer_load_balancer.load_balancer]
 }
