@@ -66,7 +66,7 @@ locals {
 #CentOS 8 imagem
 variable "server_app" {
   type    = string
-  default = "ocid1.image.oc1.iad.aaaaaaaadzlyimwgplwurg2nm5yiwbz4ah6hlj2aasrvq5mzcxb7reohpfka"
+  default = "ocid1.image.oc1.iad.aaaaaaaaks7c4lqugquqjtzw5zq3h3llhjoobmj7dosurps3ozv5tqylmfaa"
 }
 
 variable "shape_list" {
