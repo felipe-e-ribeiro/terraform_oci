@@ -1,4 +1,9 @@
 
+data "oci_core_vnic_attachments" "test_vnic_attachments" {
+    #Required
+    compartment_id = oci_identity_compartment.compart_main.id
+}
+
 data "oci_core_instances" "test_instances" {
   compartment_id = oci_identity_compartment.compart_main.id
 }
@@ -20,7 +25,7 @@ output "public_ips" {
 }
 
 resource "local_file" "AuthFile" {
-  sensitive_content = templatefile("./inventory.tmpl",
+  sensitive_content = templatefile("./ansible/inventory.tmpl",
     {
       private-ip = oci_core_instance.CreateInstance.*.public_ip,
       private-id = oci_core_instance.CreateInstance.*.id
