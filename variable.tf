@@ -24,6 +24,11 @@ variable "ssh_authorized_keys" {
   type = string
 }
 
+variable "server_count" {
+  type = number
+  default = 2
+}
+
 variable "instance_variables" {
   description = "Map instance name to hostname"
   default = {
