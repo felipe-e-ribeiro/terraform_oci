@@ -5,10 +5,10 @@ provider "oci" {
 
 terraform {
   backend "s3" {
-    bucket   = "TerraformFelipeeduribeiro"
-    key      = "terraform.tfstate"
-    region   = "us-ashburn-1"
-    endpoint = "https://idrw5lfo7fu9.compat.objectstorage.us-ashburn-1.oraclecloud.com"
+    bucket                      = "TerraformFelipeeduribeiro"
+    key                         = "terraform.tfstate"
+    region                      = "us-ashburn-1"
+    endpoint                    = "https://idrw5lfo7fu9.compat.objectstorage.us-ashburn-1.oraclecloud.com"
     skip_region_validation      = true
     skip_credentials_validation = true
     skip_metadata_api_check     = true
