@@ -4,12 +4,14 @@ provider "oci" {
 }
 
 terraform {
-  backend "http" {
-    address       = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/BCpqPfopMURdR6kSy0ulhM0HNGANbcTTVVeFvjRk4RxhrADJEntFfs_odHq4TgF-/n/idrw5lfo7fu9/b/TerraformFelipeeduribeiro/o/terraform.tfstate"
-    update_method = "PUT"
+  backend "s3" {
+    bucket   = "TerraformFelipeeduribeiro"
+    key      = "terraform.tfstate"
+    region   = "us-ashburn-1"
+    endpoint = "https://idrw5lfo7fu9.compat.objectstorage.us-ashburn-1.oraclecloud.com"
+    skip_region_validation      = true
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    force_path_style            = true
   }
 }
-
-#data "oci_identity_availability_domains" "ads" {
-#  compartment_id = oci_identity_compartment.compart_main.id
-#}
