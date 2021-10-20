@@ -26,7 +26,7 @@ variable "ssh_authorized_keys" {
 
 variable "server_count" {
   type    = number
-  default = 2
+  default = 1
 }
 
 variable "instance_variables" {
