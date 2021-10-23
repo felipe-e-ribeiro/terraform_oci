@@ -8,6 +8,7 @@ resource "oci_load_balancer_load_balancer" "load_balancer" {
     maximum_bandwidth_in_mbps = "10"
     minimum_bandwidth_in_mbps = "10"
   }
+  depends_on = [oci_core_instance.CreateInstance]
 }
 
 resource "oci_load_balancer_listener" "http_listener" {
@@ -29,10 +30,14 @@ resource "oci_load_balancer_backend_set" "backend_set" {
 }
 
 resource "oci_load_balancer_backend" "backend" {
-  for_each = { for x in oci_core_instance.CreateInstance : x.private_ip => x }
+  #for_each = { for x in oci_core_instance.CreateInstance : x.private_ip => x }
+  for_each = { for k, v in oci_core_instance.CreateInstance : k => lookup(v, "private_ip") }
 
   backendset_name  = oci_load_balancer_backend_set.backend_set.name
-  ip_address       = each.key
+  ip_address       = each.value
   load_balancer_id = oci_load_balancer_load_balancer.load_balancer.id
   port             = "80"
+  depends_on       = [oci_core_instance.CreateInstance]
+
+
 }

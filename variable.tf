@@ -86,3 +86,12 @@ variable "shape_list" {
     "4CPU_INT" = "VM.Standard2.4"
   }
 }
+
+variable "instances_iaas" {
+  type = map(object({
+    hostname    = string
+    shape_type  = string
+    cpu_flex    = number
+    memory_flex = number
+  }))
+}
