@@ -13,7 +13,7 @@ output "public_hostname" {
     for k, v in oci_core_instance.CreateInstance : k => v.display_name
   }
 
-  depends_on = [oci_core_instance.CreateInstance[0]]
+  depends_on = [oci_core_instance.CreateInstance]
 }
 
 output "public_ips" {
@@ -21,17 +21,23 @@ output "public_ips" {
     for k, v in oci_core_instance.CreateInstance : k => v.public_ip
   }
 
-  depends_on = [oci_core_instance.CreateInstance[0]]
+  depends_on = [oci_core_instance.CreateInstance]
 }
 
 resource "local_file" "AuthFile" {
+  #  for_each = oci_core_instance.CreateInstance
   sensitive_content = templatefile("./ansible/inventory.tmpl",
     {
-      private-ip = oci_core_instance.CreateInstance.*.public_ip,
-      private-id = oci_core_instance.CreateInstance.*.id
+      #private-ip = oci_core_instance.CreateInstance.*.public_ip
+      #private-ip = [ for k, v in oci_core_instance.CreateInstance : k => v.public_ip ]
+      private-ip = { for s, v in oci_core_instance.CreateInstance : s => v.public_ip }
+      #private-id = oci_core_instance.CreateInstance.*.id
+      private-id = { for s, v in oci_core_instance.CreateInstance : s => v.id }
+      #private-id = each.value.id
     }
   )
-  filename = "./ansible/inventory"
+  filename   = "./ansible/inventory"
+  depends_on = [oci_core_instance.CreateInstance]
 }
 
 
