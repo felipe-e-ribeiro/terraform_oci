@@ -20,7 +20,7 @@ variable "ssh_authorized_keys" {
 }
 
 variable "enable_lb" {
-  type    = bolean
+  type    = bool
   default = true
 }
 
