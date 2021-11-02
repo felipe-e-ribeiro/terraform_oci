@@ -15,18 +15,13 @@ variable "compartment" {
   default = "Compart_Felipe"
 }
 
-variable "instance_app_name" {
-  type    = string
-  default = "test-instance"
-}
-
 variable "ssh_authorized_keys" {
   type = string
 }
 
-variable "server_count" {
-  type    = number
-  default = 2
+variable "enable_lb" {
+  type    = bool
+  default = true
 }
 
 variable "instance_variables" {
@@ -72,19 +67,6 @@ locals {
 variable "server_app" {
   type    = string
   default = "ocid1.image.oc1.iad.aaaaaaaaks7c4lqugquqjtzw5zq3h3llhjoobmj7dosurps3ozv5tqylmfaa"
-}
-
-variable "shape_list" {
-  type = map(any)
-  default = {
-    "FREE"     = "VM.Standard.E2.1.Micro"
-    "1CPU_AMD" = "VM.Standard.E2.1"
-    "2CPU_AMD" = "VM.Standard.E2.2"
-    "4CPU_AMD" = "VM.Standard.E2.4"
-    "1CPU_INT" = "VM.Standard2.1"
-    "2CPU_INT" = "VM.Standard2.2"
-    "4CPU_INT" = "VM.Standard2.4"
-  }
 }
 
 variable "instances_iaas" {

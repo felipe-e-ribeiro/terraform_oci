@@ -12,3 +12,5 @@ instances_iaas = {
     memory_flex = 0
   },
 }
+
+enable_lb = false
