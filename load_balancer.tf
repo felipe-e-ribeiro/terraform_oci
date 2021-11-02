@@ -1,5 +1,5 @@
 resource "oci_load_balancer_load_balancer" "load_balancer" {
-  count = var.enable_lb ? 1 : 0
+  count          = var.enable_lb ? 1 : 0
   compartment_id = oci_identity_compartment.compart_main.id
   display_name   = "LoadBalancer"
   shape          = "flexible"
@@ -18,7 +18,7 @@ resource "oci_load_balancer_listener" "http_listener" {
   name                     = "Listener-80"
   port                     = "80"
   protocol                 = "HTTP"
-  depends_on = [oci_load_balancer_load_balancer.load_balancer]
+  depends_on               = [oci_load_balancer_load_balancer.load_balancer]
 }
 
 resource "oci_load_balancer_backend_set" "backend_set" {
@@ -29,7 +29,7 @@ resource "oci_load_balancer_backend_set" "backend_set" {
   load_balancer_id = oci_load_balancer_load_balancer.load_balancer.id
   name             = "BackEndSet"
   policy           = "LEAST_CONNECTIONS"
-  depends_on = [oci_load_balancer_load_balancer.load_balancer]
+  depends_on       = [oci_load_balancer_load_balancer.load_balancer]
 }
 
 resource "oci_load_balancer_backend" "backend" {
@@ -40,5 +40,5 @@ resource "oci_load_balancer_backend" "backend" {
   ip_address       = each.value
   load_balancer_id = oci_load_balancer_load_balancer.load_balancer.id
   port             = "80"
-  depends_on = [oci_load_balancer_load_balancer.load_balancer]
+  depends_on       = [oci_load_balancer_load_balancer.load_balancer]
 }
