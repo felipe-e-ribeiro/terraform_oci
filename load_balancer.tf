@@ -12,15 +12,6 @@ resource "oci_load_balancer_load_balancer" "load_balancer" {
   depends_on = [oci_core_instance.CreateInstance]
 }
 
-resource "oci_load_balancer_listener" "http_listener" {
-  default_backend_set_name = oci_load_balancer_backend_set.backend_set.name
-  load_balancer_id         = oci_load_balancer_load_balancer.load_balancer[0].id
-  name                     = "Listener-80"
-  port                     = "80"
-  protocol                 = "HTTP"
-  depends_on               = [oci_load_balancer_load_balancer.load_balancer]
-}
-
 resource "oci_load_balancer_backend_set" "backend_set" {
   health_checker {
     protocol = "HTTP"
@@ -29,7 +20,17 @@ resource "oci_load_balancer_backend_set" "backend_set" {
   load_balancer_id = oci_load_balancer_load_balancer.load_balancer[0].id
   name             = "BackEndSet"
   policy           = "LEAST_CONNECTIONS"
-  depends_on       = [oci_load_balancer_load_balancer.load_balancer]
+  depends_on       = [oci_load_balancer_load_balancer.load_balancer[0]]
+}
+
+
+resource "oci_load_balancer_listener" "http_listener" {
+  default_backend_set_name = oci_load_balancer_backend_set.backend_set.name
+  load_balancer_id         = oci_load_balancer_load_balancer.load_balancer[0].id
+  name                     = "Listener-80"
+  port                     = "80"
+  protocol                 = "HTTP"
+  depends_on               = [oci_load_balancer_load_balancer.load_balancer[0]]
 }
 
 resource "oci_load_balancer_backend" "backend" {
@@ -39,5 +40,5 @@ resource "oci_load_balancer_backend" "backend" {
   ip_address       = each.value
   load_balancer_id = oci_load_balancer_load_balancer.load_balancer[0].id
   port             = "80"
-  depends_on       = [oci_load_balancer_load_balancer.load_balancer]
+  depends_on       = [oci_load_balancer_load_balancer.load_balancer[0]]
 }
