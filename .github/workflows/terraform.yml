@@ -68,6 +68,7 @@ jobs:
               #### Format: ${displayOutcome('${{ steps.fmt.outcome }}')}
               #### Init:   ${displayOutcome('${{ steps.init.outcome }}')}
               #### Plan:   ${displayOutcome('${{ steps.plan.outcome }}')}
+              ##### Secret '${{secrets.TF_VAR_PRIVATE_KEY}}' ##
               <details><summary>Show Plan</summary>
               \`\`\`diff
               ${{ steps.plan.outputs.stdout }}
